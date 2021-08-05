@@ -1,0 +1,15 @@
+# Create EC-Git configuration
+
+GIT_CONFIG=github-sandbox
+GIT_USER=gmaxey
+# Read only public repositories
+GIT_PW=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
+
+printf "${GIT_PW}\n" | ectool runProcedure /plugins/EC-Git/project \
+  --procedureName CreateConfiguration \
+  --actualParameter \
+      config="${GIT_CONFIG}" \
+      credential="${GIT_CONFIG}" \
+	  authType="password" \
+      checkConnection=false \
+  --credential "${GIT_CONFIG}"="${GIT_USER}"
