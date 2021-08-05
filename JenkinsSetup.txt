@@ -1,0 +1,77 @@
+Create a new GitHub org for this instance, e.g., cb-thunder
+Fork repos to that GitHub org
+- cb-demos/microblog-frontend
+-- rename master to main
+-- add development branch
+- cb-demos/microblog-backend
+-- rename master to main
+-- add development branch
+- cb-demos/pipeline-library
+- cb-demos/core-pipeline-template-catalog (temporarily cb-f-sandbox)
+-- Update templates/vuejs-app/Jenkinsfile to point to this instance's SonarQube, e.g., https://sonarqube.cb-demos.io/ ??
+-- master -> main
+
+Setting up Jenkins for Blogging application
+- Same password as CD
+- Create controller (team-a)
+- Install suggested plugins
+- (Create first admin user--skip)
+- Create a default executor (if this hasn't already been done)
+	Go to the kubernetes-shared-cloud in the all tab on CJOC
+	Go to configure
+	Go to pod templates
+	Add a new one with these settings (everything else can remain the default)
+	Add Pod Template
+	Give it a name "default"
+	Pod Template details
+	Labels -> "default"
+	Useage -> Use this node as much as possible
+- Install SonarQube plugin
+- Configure SonarQube plugin
+-- Login to SonarQube and generate an API token
+-- System configuration, add Secret Text with API token above
+-- Global tools configuration
+- Install CD plugins
+- Create CD configuration, SDA-RO (Configure system)
+- Add templates
+- Add Libraries (Configure system, search on Library, Same name as in templates/vuejs-app/Jenkinsfile: cb-sandbox)
+https://github.com/cb-thunder/pipeline-template-catalog.git
+-- SCM modern, point to repo
+- Manage Jenkins, Configure System, Global Pipeline Library
+-- Add
+-- cb-demos  (for now)
+-- main
+-- Modern SCM, GitHub, https://github.com/cb-thunder/pipeline-library.git
+- Event webhooks (pipeline handles whether PR or commit), GitHub org
+-- Payload URL: https://sda.cb-demos.io/team-a/github-webhook/
+-- JSON
+-- Send me everything
+- Create a Vue-js job pointing to frontend repo (cb-thunder-v2)
+-- New item
+-- Vue.js..
+-- microblog-fe
+-- cb-thunder, microblog-frontend
+- Create a Python job pointing to backend repo
+-- New item
+-- Python
+-- cb-thunder, microblog-backend
+
+- CI configurations for team-a
+- Update Templates with teh configuration: name, two places
+- Blog -> "Team A" project
+
+- Install publish artifact to GCP?
+
+CD
+- Create team-a EC-Jenkins configuration, using a token
+- Github credentials
+
+
+
+Usage Instructions
+- Create Jira ticket
+- Edit file in repo
+- Commit to new branch named after Jira ticket
+- Create PR to development named after Jira ticket
+- Use build link to access CD pipeline
+
